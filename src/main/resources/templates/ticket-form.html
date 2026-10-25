@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ticket Booking Form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1>Ticket Booking Form</h1>
+<div class="alert error" th:if="${error}" th:text="${error}"></div>
+
+<form class="card" th:action="@{/ticket}" th:object="${ticket}" method="post" novalidate>
+    <label for="passengerName">Passenger Name</label>
+    <input type="text" id="passengerName" th:field="*{passengerName}" th:classappend="${#fields.hasErrors('passengerName')} ? 'invalid'">
+    <span class="field-error" th:if="${#fields.hasErrors('passengerName')}" th:errors="*{passengerName}"></span>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" th:field="*{email}" th:classappend="${#fields.hasErrors('email')} ? 'invalid'">
+    <span class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
+    <label for="source">Source Station</label>
+    <input type="text" id="source" th:field="*{source}" th:classappend="${#fields.hasErrors('source')} ? 'invalid'">
+    <span class="field-error" th:if="${#fields.hasErrors('source')}" th:errors="*{source}"></span>
+
+    <label for="destination">Destination Station</label>
+    <input type="text" id="destination" th:field="*{destination}" th:classappend="${#fields.hasErrors('destination')} ? 'invalid'">
+    <span class="field-error" th:if="${#fields.hasErrors('destination')}" th:errors="*{destination}"></span>
+
+    <label for="phone">Phone Number</label>
+    <input type="text" id="phone" th:field="*{phone}" th:classappend="${#fields.hasErrors('phone')} ? 'invalid'">
+    <span class="field-error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+
+    <button type="submit" class="btn-green">Book Ticket</button>
+</form>
+
+<p class="center-link"><a th:href="@{/tickets}">View All Tickets</a></p>
+</body>
+</html>

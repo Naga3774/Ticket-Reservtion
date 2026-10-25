@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>All Tickets</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1>All Tickets</h1>
+<p class="center-link"><a th:href="@{/ticket}">Book New Ticket</a></p>
+
+<div class="alert success" th:if="${success}" th:text="${success}"></div>
+<div class="alert error" th:if="${error}" th:text="${error}"></div>
+
+<div class="table-wrap" th:if="${!tickets.isEmpty()}">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th><th>Passenger Name</th><th>Email</th><th>Source</th>
+            <th>Destination</th><th>Phone</th><th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="t : ${tickets}">
+            <td th:text="${t.id}"></td>
+            <td th:text="${t.passengerName}"></td>
+            <td th:text="${t.email}"></td>
+            <td th:text="${t.source}"></td>
+            <td th:text="${t.destination}"></td>
+            <td th:text="${t.phone}"></td>
+            <td class="actions">
+                <a class="btn btn-blue" th:href="@{/tickets/edit/{id}(id=${t.id})}">Edit</a>
+                <form th:action="@{/tickets/delete/{id}(id=${t.id})}" method="post"
+                      onsubmit="return confirm('Are you sure you want to delete this ticket?');">
+                    <button type="submit" class="btn btn-red">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="empty" th:if="${tickets.isEmpty()}">No tickets available. Book your first ticket.</p>
+</body>
+</html>
